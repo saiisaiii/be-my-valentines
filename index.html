@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine Buttons</title>
+<!-- Pixel font -->
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+    html, body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        font-family: 'Press Start 2P', monospace;
+    }
+
+    /* Backgrounds */
+    #bg1, #bg2 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+    }
+
+    #bg1 {
+        background-image: url('background.jpg');
+        z-index: 1;
+    }
+
+    #bg2 {
+        background-image: url('new-background.jpg');
+        z-index: 4;
+        transform: translateY(100%);
+        transition: transform 0.7s ease;
+    }
+
+    /* Buttons */
+    .btn {
+        width: 200px;
+        height: 100px;
+        border: none;
+        cursor: pointer;
+        background-image: url('button-bg.png');
+        background-size: cover;
+        background-position: center;
+        background-color: transparent;
+        color: #fff;
+        font-size: 14px;
+        text-align: center;
+        line-height: 100px;
+        text-shadow: 1px 1px 0 rgba(0,0,0,0.7);
+        position: absolute;
+        font-family: 'Press Start 2P', monospace;
+        transition: left 0.2s ease, top 0.2s ease;
+        z-index: 3;
+    }
+
+    /* Closer buttons */
+    #yes { top: 50%; left: 42%; transform: translate(-50%, -50%); }
+    #no { top: 50%; left: 58%; transform: translate(-50%, -50%); }
+</style>
+</head>
+<body>
+
+<div id="bg1"></div>
+<div id="bg2"></div>
+
+<button class="btn" id="yes">Yes</button>
+<button class="btn" id="no">No</button>
+
+<!-- Add audio element -->
+<audio id="yesAudio" src="your-audio.mp3"></audio>
+
+<script>
+    const yesBtn = document.getElementById('yes');
+    const noBtn = document.getElementById('no');
+    const bg2 = document.getElementById('bg2');
+    const yesAudio = document.getElementById('yesAudio');
+
+    // No button movement
+    noBtn.addEventListener('mouseenter', () => {
+        const padding = 20;
+        const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+        const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+        let randomX = Math.random() * maxX;
+        let randomY = Math.random() * maxY;
+
+        // Avoid overlapping Yes button
+        const yesRect = yesBtn.getBoundingClientRect();
+        const noRect = noBtn.getBoundingClientRect();
+        if (
+            randomX + noRect.width > yesRect.left &&
+            randomX < yesRect.right &&
+            randomY + noRect.height > yesRect.top &&
+            randomY < yesRect.bottom
+        ) {
+            randomX += 150;
+            randomY += 50;
+        }
+
+        noBtn.style.left = randomX + 'px';
+        noBtn.style.top = randomY + 'px';
+    });
+
+    // Yes button click
+    yesBtn.addEventListener('click', () => {
+        bg2.style.transform = 'translateY(0)'; // slide up new background
+        yesBtn.style.display = 'none';
+        noBtn.style.display = 'none';
+        yesAudio.play(); // play MP3
+    });
+</script>
+
+</body>
+</html>
