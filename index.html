@@ -4,7 +4,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
 <title>Valentine Buttons</title>
-<!-- Pixel font -->
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
     html, body {
@@ -14,7 +13,6 @@
         font-family: 'Press Start 2P', monospace;
     }
 
-    /* Backgrounds */
     #bg1, #bg2 {
         position: absolute;
         top: 0;
@@ -37,7 +35,6 @@
         transition: transform 0.7s ease;
     }
 
-    /* Buttons */
     .btn {
         width: 200px;
         height: 100px;
@@ -58,7 +55,6 @@
         z-index: 3;
     }
 
-    /* Closer buttons */
     #yes { top: 50%; left: 42%; transform: translate(-50%, -50%); }
     #no { top: 50%; left: 58%; transform: translate(-50%, -50%); }
 </style>
@@ -71,7 +67,6 @@
 <button class="btn" id="yes">Yes</button>
 <button class="btn" id="no">No</button>
 
-<!-- Add audio element -->
 <audio id="yesAudio" src="your-audio.mp3"></audio>
 
 <script>
@@ -80,7 +75,6 @@
     const bg2 = document.getElementById('bg2');
     const yesAudio = document.getElementById('yesAudio');
 
-    // No button movement
     noBtn.addEventListener('mouseenter', () => {
         const padding = 20;
         const maxX = window.innerWidth - noBtn.offsetWidth - padding;
@@ -89,7 +83,6 @@
         let randomX = Math.random() * maxX;
         let randomY = Math.random() * maxY;
 
-        // Avoid overlapping Yes button
         const yesRect = yesBtn.getBoundingClientRect();
         const noRect = noBtn.getBoundingClientRect();
         if (
@@ -106,15 +99,15 @@
         noBtn.style.top = randomY + 'px';
     });
 
-    // Yes button click
     yesBtn.addEventListener('click', () => {
-        bg2.style.transform = 'translateY(0)'; // slide up new background
+        bg2.style.transform = 'translateY(0)'; 
         yesBtn.style.display = 'none';
         noBtn.style.display = 'none';
-        yesAudio.play(); // play MP3
+        yesAudio.play(); 
     });
 </script>
 
 </body>
 </html>
+
 
